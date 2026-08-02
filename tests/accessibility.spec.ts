@@ -14,7 +14,7 @@ test.describe('Accessibility Tests', () => {
     Logger.info('Test passed: Keyboard navigation works');
   });
 
-  test('ADV-TC_13 - Verify color contrast (WCAG AA standard)', async ({ page }) => {
+  test('ADV-TC_13 - Verify color contrast (WCAG AA standard)', async ({ homePage, page }) => {
     Logger.info('Starting: Color contrast verification');
     const hasAccessibilityAttributes = await page.evaluate(() => {
       const buttons = document.querySelectorAll('button');

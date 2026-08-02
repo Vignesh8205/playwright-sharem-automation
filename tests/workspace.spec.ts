@@ -24,6 +24,7 @@ test.describe('Workspace Tests', () => {
     const messageCountBefore = await homePage.getMessageCount();
     await page.reload();
     await homePage.waitForElement(homePage['homeTitle']);
+    await page.waitForTimeout(1000);
     const messageCountAfter = await homePage.getMessageCount();
     expect(messageCountAfter).toBeGreaterThanOrEqual(messageCountBefore);
     Logger.info('Test passed: Workspace state persisted');

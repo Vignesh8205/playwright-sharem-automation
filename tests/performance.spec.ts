@@ -5,7 +5,7 @@ test.describe('Performance Tests', () => {
   test('ADV-TC_01 - Measure page load time', async ({ page }) => {
     Logger.info('Starting: Page load time measurement');
     const navigationTiming = JSON.parse(
-      await page.evaluate(() => JSON.stringify(performance.getEntriesByType('navigation')))
+      await page.evaluate(() => JSON.stringify(performance.getEntriesByType('navigation' as any)))
     );
     if (navigationTiming.length > 0) {
       const timing = navigationTiming[0];

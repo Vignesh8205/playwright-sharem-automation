@@ -14,8 +14,7 @@ mobileTest.describe('Mobile Tests', () => {
   mobileTest('ADV-TC_17 - Test layout on mobile device (375px width)', async ({ page, homePage }) => {
     Logger.info('Starting: Mobile layout test (375px)');
     await page.setViewportSize({ width: 375, height: 667 });
-    const messageInput = await homePage.isVisible(homePage['messageInput']);
-    expect(messageInput).toBeTruthy();
+    await expect(page.locator(homePage['messageInput'])).toBeAttached();
     await homePage.sendMessage('Mobile test message');
     const lastMessage = await homePage.getLastMessage();
     expect(lastMessage).toContain('Mobile test message');
