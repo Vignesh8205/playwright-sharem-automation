@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/test-fixtures';
 import { Logger } from '../utils/logger';
 
 test.describe('Storage & Persistence Tests', () => {
-  test('ADV-TC_15 - Test localStorage/sessionStorage behavior', async ({ page }) => {
+  test('ADV-TC_15 - Test localStorage/sessionStorage behavior', async ({ homePage, page }) => {
     Logger.info('Starting: Storage behavior test');
     const storageData = await page.evaluate(() => {
       return {

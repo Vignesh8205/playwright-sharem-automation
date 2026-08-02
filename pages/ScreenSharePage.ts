@@ -2,7 +2,8 @@ import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class ScreenSharePage extends BasePage {
-  readonly shareScreenBtn = 'button:has-text("Share Screen")';
+  readonly shareScreenBtn = 'button:has-text("Screen Share")';
+  readonly loginBtn = 'button:has-text("Login")';
   readonly stopSharingBtn = 'button:has-text("Stop Sharing")';
   readonly screenShareContainer = '.screen-share-container';
   readonly participantsList = '.participants-list';

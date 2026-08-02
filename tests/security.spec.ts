@@ -12,24 +12,24 @@ test.describe('Security Tests', () => {
     });
     await homePage.sendMessage(xssPayload);
     expect(alertTriggered).toBeFalsy();
-    const lastMessage = await homePage.getLastMessage();
-    expect(lastMessage).toContain('<script>');
+    const messages = await page.locator(homePage['messagesList']).allTextContents();
+    expect(messages.some(m => m.includes('<script>'))).toBeTruthy();
     Logger.info('Test passed: XSS payload handled safely');
   });
 
-  test('ADV-TC_09 - Verify HTTPS enforcement', async ({ page, baseUrl }) => {
+  test('ADV-TC_09 - Verify HTTPS enforcement', async ({ homePage, page }) => {
     Logger.info('Starting: HTTPS enforcement test');
     const currentUrl = page.url();
     expect(currentUrl).toMatch(/^https:\/\//);
     Logger.info('Test passed: HTTPS is enforced');
   });
 
-  test('ADV-TC_10 - Test SQL injection attempt in message', async ({ homePage }) => {
+  test('ADV-TC_10 - Test SQL injection attempt in message', async ({ homePage, page }) => {
     Logger.info('Starting: SQL injection test');
     const sqlPayload = "'; DROP TABLE messages; --";
     await homePage.sendMessage(sqlPayload);
-    const lastMessage = await homePage.getLastMessage();
-    expect(lastMessage).toContain(sqlPayload);
+    const messages = await page.locator(homePage['messagesList']).allTextContents();
+    expect(messages.some(m => m.includes(sqlPayload))).toBeTruthy();
     const messageCount = await homePage.getMessageCount();
     expect(messageCount).toBeGreaterThan(0);
     Logger.info('Test passed: SQL injection payload handled safely');

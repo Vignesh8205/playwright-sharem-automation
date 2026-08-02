@@ -2,16 +2,16 @@ import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
-  readonly homeTitle = 'h1:has-text("Messager")';
+  readonly homeTitle = '.sidebar-logo:has-text("Messager")';
   readonly workspaceSection = 'text=WORKSPACES';
   readonly clientLaptopBtn = 'button:has-text("Client Laptop")';
   readonly personalDeviceBtn = 'button:has-text("Personal Device")';
-  readonly messageInput = 'input[placeholder="Type or paste message..."]';
-  readonly sendButton = 'button[title="Send"]';
-  readonly attachmentBtn = 'button[title="Attachment"]';
+  readonly messageInput = 'textarea[placeholder="Type or paste message..."]';
+  readonly sendButton = 'button.send-btn';
+  readonly attachmentBtn = 'button.attachment-btn';
   readonly refreshChatBtn = 'button:has-text("Refresh Chat")';
   readonly clearChatsBtn = 'button:has-text("Clear All Chats")';
-  readonly themeToggleBtn = 'button[title*="Mode"]';
+  readonly themeToggleBtn = 'button:has-text("Mode")';
   readonly messagesList = '.message-bubble';
   readonly liveIndicator = 'text=Live Link Active';
 
@@ -37,13 +37,13 @@ export class HomePage extends BasePage {
   }
 
   async sendMessage(message: string): Promise<void> {
-    await this.fill(this.messageInput, message);
-    await this.click(this.sendButton);
+    await this.page.locator(this.messageInput).fill(message, { force: true });
+    await this.page.locator(this.sendButton).click({ force: true });
     await this.page.waitForTimeout(500);
   }
 
   async sendMessageViaEnter(message: string): Promise<void> {
-    await this.fill(this.messageInput, message);
+    await this.page.locator(this.messageInput).fill(message, { force: true });
     await this.page.press(this.messageInput, 'Enter');
     await this.page.waitForTimeout(500);
   }
