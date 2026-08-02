@@ -11,7 +11,6 @@ test.describe('Screen Share Tests', () => {
     if (canShare) {
       expect(canShare).toBeTruthy();
     }
-    kgaidsgisg
     Logger.info('Test passed: Screen share page accessible');
   });
 
